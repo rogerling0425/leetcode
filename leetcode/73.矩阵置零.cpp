@@ -1,0 +1,75 @@
+/*
+ * @lc app=leetcode.cn id=73 lang=cpp
+ *
+ * [73] 矩阵置零
+ */
+#include <vector>
+#include <algorithm>
+using namespace std;
+// @lc code=start
+class Solution
+{
+public:
+    void setZeroes(vector<vector<int>> &matrix)
+    {
+        if(matrix.empty() || matrix[0].empty())
+            return;
+        bool FirstRowFlag = false;
+        bool FirstColFlag = false;
+        for(int i = 0; i < matrix[0].size(); i++)
+        {
+            if(matrix[0][i] == 0)
+            {
+                FirstRowFlag = true;
+                break;
+            }
+        }
+        for(int i = 0; i < matrix.size(); i++)
+        {
+            if(matrix[i][0] == 0)
+            {
+                FirstColFlag = true;
+                break;
+            }
+        }
+        for(int i = 1; i < matrix.size(); i++)
+        {
+            for(int j = 1; j < matrix[0].size(); j++)
+            {
+                if(matrix[i][j] == 0)
+                {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        for(int i = 1; i < matrix.size(); i++)
+        {
+            if(matrix[i][0] == 0)
+            {
+                for(int j = 1; j < matrix[0].size(); j++)
+                    matrix[i][j] = 0;
+            }
+        }
+        for(int j = 1; j < matrix[0].size(); j++)
+        {
+            if(matrix[0][j] == 0)
+            {
+                for(int i = 1; i < matrix.size(); i++)
+                    matrix[i][j] = 0;
+            }
+        }
+        if(FirstRowFlag)
+        {
+            for(int i = 0; i < matrix[0].size(); i++)
+                matrix[0][i] = 0;
+        }
+        if(FirstColFlag)
+        {
+            for(int i = 0; i < matrix.size(); i++)
+                matrix[i][0] = 0;
+        }
+        return;
+    }
+};
+// @lc code=end
